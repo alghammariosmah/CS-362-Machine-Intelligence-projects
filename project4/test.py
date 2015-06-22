@@ -3,7 +3,7 @@ from Passenger import *
 from Node import *
 from Feature import *
 
-passengers = DataReader.read('data3.csv')
+passengers = DataReader.read('data2.csv')
 
 node = Node(passengers)
 
