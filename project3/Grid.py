@@ -52,16 +52,26 @@ class Grid:
     Check getRandomBranches() function, your function should look similar with it.
     """
     def getBranches(self):
-        rVal = []
-        randomEmpty = self.getRandomEmptyCell()
-        possibleValues = self.getPossibles(randomEmpty[0], randomEmpty[1])
-        for value in possibleValues:
-            temp = copy.deepcopy(self.matrix)
-            temp[randomEmpty[0]][randomEmpty[1]] = value
-            grid = Grid(temp)
-            grid.fill()
-            rVal.append(grid)
-        return rVal
+        tempt= []
+        d = {}
+        for i in range(9):
+            for j in range(9):
+                if self.matrix[i][j]==None:
+                    tempt.append((i,j))
+        for node in tempt:
+            possibleValues = self.getPossibles(node[0],node[1])
+            d.setdefault(node,possibleValues)
+        dd=sorted(d, key=lambda k: len(d[k]))
+        for n in dd:
+            rVal = []
+            possibleValues1 = self.getPossibles(n[0],n[1])
+            for value in possibleValues1:
+                temp = copy.deepcopy(self.matrix)
+                temp[n[0]][n[1]] = value
+                grid = Grid(temp)
+                grid.fill()
+                rVal.append(grid)
+            return rVal
 
 
     """
@@ -279,17 +289,5 @@ class Grid:
                 rVal += '\n'
         return rVal
 
-
-
-
-c = Grid
-line = '..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..'
-line2 = '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
-stringline=c.stringToMatrix(line2)
-
-d = Grid(stringline)
-print d
-
-print d.getBranches()
 
 
